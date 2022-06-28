@@ -11,7 +11,7 @@
 #define LONGEST_INSN	10
 
 /* 
-	 0000       0          00		 000      000       000         ...
+	 0000       0          00        000      000       000         ...
 	opcode   reg_op     bitwidth   dst_reg  src_reg1  src_reg2      imm
 */
 
