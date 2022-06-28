@@ -17,7 +17,7 @@ In `start.ps1`，by running `Set-ProcessMitigation -Name EasyVM.exe -Enable Disa
 The instruction format is as follows in little endian order:
 
 ```C
- 0000       0          00		 000      000       000         ...
+ 0000       0          00        000      000       000         ...
 opcode   reg_op     bitwidth   dst_reg  src_reg1  src_reg2      imm
 ```
 
@@ -182,11 +182,11 @@ void OperDiv(VMState_t state)
 }
 ```
 
-Though the IDA does not provide exception handling information in the disassembler window, while testing the `DIV` instruction, the program still works fine even if there is a division by zero operation.
+Though the IDA does not provide exception handling information in the pseudocode window, while testing the `DIV` instruction, the program still works fine even if there is a division by zero operation.
 
 Therefore, it can be easily work out that there is definitely a exception handling code exist.
 
-Of course, if you refer to the source code, it will be much more obvious.
+Of course, if you refer to the source code, it will be much more obvious. And you can also find the exception handling logic in the disassembler window of IDA.
 
 ```C
 __try
@@ -250,7 +250,7 @@ So far, we cannot achieve the final exploitation, since unlink ptmalloc2, the ch
 
 Only after we get the Encoding of `BufferHeap` will it be possible to fake a legal chunk header. 
 
-Meanwhile, to accomplish unlink attack, we need to know where the File buffer pointer stored.  That is, the address of `FileHeap`.
+Meanwhile, to accomplish unlink attack, we need to know where the File buffer pointer stored, that is, the address of `FileHeap`, to bypass the double-linked list check.
 
 Notice that VM will check whether the PC is out of bound before parsing every instruction. 
 

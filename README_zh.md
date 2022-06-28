@@ -15,7 +15,7 @@ EasyVM自定义了一些简单指令实现了一个简易vm，提供一些基本
 指令的格式如下，按照小端序：
 
 ```C
- 0000       0          00		 000      000       000         ...
+ 0000       0          00        000      000       000         ...
 opcode   reg_op     bitwidth   dst_reg  src_reg1  src_reg2      imm
 ```
 
@@ -236,7 +236,7 @@ void do_sys_write_vul(VMState_t state)
 
 但目前为止仍然无法完成利用，因为Windows NT heap下chunk（`_HEAP_ENTRY`）的header都是xor过的，需要得到拿到BufferHeap Encoding才能伪造合法的chunk header。
 
-同时，由于需要进行Unlink attack，则要知道File buffer指针存放的位置，即FileHeap的地址。
+同时，由于需要进行Unlink attack，则要知道File buffer指针存放的位置，即FileHeap的地址, 来绕过双向链表的检查。
 
 注意到VM在执行指令时会检查PC是否越界，如果检查没有通过，则触发VM自定义的异常处理函数`code_buffer_violation`，而这个函数最后是不会调用`exit(1)`而是会继续解析指令执行。
 
